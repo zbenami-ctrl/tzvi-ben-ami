@@ -3,6 +3,14 @@ import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { HomePage } from "@/components/home-page";
+import {
+  AboutPage,
+  BlogPage,
+  FaqPage,
+  MeetingPage,
+  PostPage,
+  RecommendationsPage,
+} from "@/components/inner-pages";
 import { Language, SiteHeader } from "@/components/site-header";
 import { cleanText, findEntry } from "@/lib/content";
 
@@ -28,6 +36,15 @@ export default async function Page({ params }: Props) {
   if ((pathname === "/en" || pathname === "/de") && entry.kind === "page") {
     return <HomePage language={entry.language} />;
   }
+  if (entry.kind === "post") return <PostPage entry={entry} />;
+
+  const pagePath = pathname.replace(/^\/(en|de)(?=\/)/, "");
+  if (pagePath === "/about") return <AboutPage entry={entry} />;
+  if (pagePath === "/metting-with-tzvi") return <MeetingPage entry={entry} />;
+  if (pagePath === "/שאלות-ותשובות") return <FaqPage entry={entry} />;
+  if (pagePath === "/recomandations") return <RecommendationsPage entry={entry} />;
+  if (pagePath === "/blog") return <BlogPage entry={entry} />;
+
   const lines = cleanText(entry);
   const title = lines[0] || entry.title;
   const language = entry.language as Language;
@@ -44,7 +61,7 @@ export default async function Page({ params }: Props) {
         <div className="content-hero-shade" />
       </div>
       <article className="content-page section-shell">
-        <p className="section-kicker">{entry.kind === "post" ? labels.blog : labels.page}</p>
+        <p className="section-kicker">{labels.page}</p>
         <h1>{title}</h1>
         <div className="prose">
           {lines.slice(1).map((line, index) => {
