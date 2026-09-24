@@ -25,6 +25,11 @@ export function findEntry(pathname: string) {
 
 export function cleanText(entry: SiteEntry) {
   const lines = entry.text.split("\n").map((line) => line.trim()).filter(Boolean);
-  const start = lines.findIndex((line) => ["קריאת נשמה דרך כף היד", "Soul Reading through the palm", "Seelenlesen durch die Handfläche"].includes(line));
-  return lines.slice(start >= 0 ? start : 0).filter((line) => !["top of page", "bottom of page", "More", "Use tab to navigate through the menu items."].includes(line));
+  const menuEnd = lines.indexOf("Use tab to navigate through the menu items.");
+  const markerStart = lines.findIndex((line) => ["קריאת נשמה דרך כף היד", "Soul Reading through the palm", "Seelenlesen durch die Handfläche"].includes(line));
+  const start = menuEnd >= 0 ? menuEnd + 1 : markerStart >= 0 ? markerStart : 0;
+  const end = lines.indexOf("bottom of page");
+  return lines
+    .slice(start, end >= 0 ? end : undefined)
+    .filter((line) => !["top of page", "More", "Use tab to navigate through the menu items."].includes(line));
 }
