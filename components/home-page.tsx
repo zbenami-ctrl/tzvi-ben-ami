@@ -34,7 +34,7 @@ export function HomePage() {
           <Link className="secondary-button" href="/metting-with-tzvi">לפרטים על הפגישה</Link>
         </div>
         <div className="meeting-image">
-          <Image src="/media/zvi.jpg" alt="צבי בן־עמי" fill sizes="(max-width: 800px) 100vw, 45vw" />
+          <Image src="/media/zvi-web.jpg" alt="צבי בן־עמי" fill sizes="(max-width: 800px) 100vw, 45vw" />
         </div>
       </section>
 
