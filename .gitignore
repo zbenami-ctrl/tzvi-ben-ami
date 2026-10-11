@@ -8,3 +8,4 @@ node_modules
 
 # local Claude preview config
 .claude/launch.json
+*.tsbuildinfo

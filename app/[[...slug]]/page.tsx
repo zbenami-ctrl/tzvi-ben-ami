@@ -10,9 +10,11 @@ import {
   MeetingPage,
   PostPage,
   RecommendationsPage,
+  ui,
 } from "@/components/inner-pages";
 import { Language, SiteHeader } from "@/components/site-header";
 import { cleanText, findEntry } from "@/lib/content";
+import { readPage } from "@/lib/pages";
 
 type Props = { params: Promise<{ slug?: string[] }> };
 
@@ -22,7 +24,23 @@ function pathnameFrom(slug?: string[]) {
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
-  const entry = findEntry(pathnameFrom(slug));
+  const pathname = pathnameFrom(slug);
+  if (pathname === "/en" || pathname === "/de") {
+    const { meta } = readPage(pathname.slice(1) as Language, "home");
+    return { title: { absolute: `${meta.name} | ${meta.kicker}` } };
+  }
+  const aboutMatch = pathname.match(/^(?:\/(en|de))?\/about$/);
+  if (aboutMatch) {
+    const language = (aboutMatch[1] ?? "he") as Language;
+    const [about, home] = [readPage(language, "about"), readPage(language, "home")];
+    return { title: { absolute: `${about.meta.title} | ${home.meta.name}` } };
+  }
+  const meetingMatch = pathname.match(/^(?:\/(en|de))?\/metting-with-tzvi$/);
+  if (meetingMatch) {
+    const language = (meetingMatch[1] ?? "he") as Language;
+    return { title: { absolute: `${ui[language].meeting} | ${readPage(language, "home").meta.name}` } };
+  }
+  const entry = findEntry(pathname);
   if (!entry) return {};
   return { title: entry.title, description: entry.description };
 }

@@ -40,7 +40,7 @@ export function SiteHeader({ language = "he" }: { language?: Language }) {
   return (
     <header className="site-header" dir={language === "he" ? "rtl" : "ltr"}>
       <Link href={localizedPath(language, "/")} className="brand" aria-label={language === "he" ? "דף הבית" : "Home"}>
-        <span>{language === "he" ? "צבי בן־עמי" : "Zvi Ben-Ami"}</span>
+        <span className="handwriting">{language === "he" ? "צבי בן־עמי" : "Zvi Ben-Ami"}</span>
         <small>{brandLine[language]}</small>
       </Link>
       <nav aria-label={language === "he" ? "ניווט ראשי" : "Main navigation"}>

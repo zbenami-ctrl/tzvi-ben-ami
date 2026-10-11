@@ -10,8 +10,11 @@ import {
   postLines,
   type SiteEntry,
 } from "@/lib/content";
+import { readPage, section } from "@/lib/pages";
+import { ContentBlocks } from "./content-blocks";
+import { SiteFooter } from "./site-footer";
 
-const ui = {
+export const ui = {
   he: {
     about: "מי אני",
     aboutKicker: "הדרך שלי",
@@ -25,7 +28,6 @@ const ui = {
     blogKicker: "הבלוג של צבי",
     read: "לקריאה",
     contact: "לתיאום פגישה עם צבי",
-    noPrediction: "בפגישה איתי אין ניבוי עתידות",
     back: "חזרה לבלוג",
   },
   en: {
@@ -41,7 +43,6 @@ const ui = {
     blogKicker: "Zvi’s blog",
     read: "Read more",
     contact: "Schedule a meeting with Zvi",
-    noPrediction: "There is no fortune-telling in my sessions",
     back: "Back to the blog",
   },
   de: {
@@ -57,7 +58,6 @@ const ui = {
     blogKicker: "Zvis Blog",
     read: "Weiterlesen",
     contact: "Eine Session mit Zvi vereinbaren",
-    noPrediction: "In meinen Sessions gibt es keine Zukunftsvoraussagen",
     back: "Zurück zum Blog",
   },
 } satisfies Record<Language, Record<string, string>>;
@@ -66,35 +66,23 @@ function localized(language: Language, path: string) {
   return language === "he" ? path : `/${language}${path}`;
 }
 
-function Footer({ language }: { language: Language }) {
-  return (
-    <footer>
-      © {new Date().getFullYear()} {language === "he" ? "צבי בן־עמי" : "Zvi Ben-Ami"} ·{" "}
-      <Link href="/">עברית</Link> · <Link href="/en">English</Link> · <Link href="/de">Deutsch</Link>
-    </footer>
-  );
-}
-
 function PageTop({
   language,
   kicker,
   title,
-  image,
-  imageAlt,
 }: {
   language: Language;
   kicker: string;
   title: string;
-  image: string;
-  imageAlt: string;
 }) {
   return (
     <section className="inner-hero">
-      <Image src={image} alt={imageAlt} fill priority sizes="100vw" />
+      <Image src="/media/hero-landscape.jpg" alt="" fill priority sizes="100vw" />
+      <video className="hero-video" src="/media/hero-loop.mp4" poster="/media/hero-landscape.jpg" autoPlay muted loop playsInline aria-hidden="true" />
       <div className="inner-hero-shade" />
       <div className="inner-hero-copy" dir={language === "he" ? "rtl" : "ltr"}>
         <p className="eyebrow">{kicker}</p>
-        <h1>{title}</h1>
+        <h1 className="handwriting">{title}</h1>
       </div>
     </section>
   );
@@ -130,64 +118,46 @@ function ContactBand({ language }: { language: Language }) {
 
 export function AboutPage({ entry }: { entry: SiteEntry }) {
   const language = entry.language;
-  const lines = pageLines(entry);
-  const sections = sectionsFrom(lines.slice(1)).filter((section) => !section.heading?.includes("ספר לי עוד"));
+  const page = readPage(language, "about");
 
   return (
     <main dir={language === "he" ? "rtl" : "ltr"} lang={language}>
       <SiteHeader language={language} />
-      <PageTop language={language} kicker={ui[language].aboutKicker} title={ui[language].about} image="/media/hero-landscape.jpg" imageAlt="" />
+      <PageTop language={language} kicker={page.meta.kicker} title={page.meta.title} />
       <div className="story-layout section-wide">
         <aside className="story-portrait">
           <Image src="/media/zvi-web.jpg" alt={language === "he" ? "צבי בן־עמי" : "Zvi Ben-Ami"} fill sizes="(max-width: 850px) 100vw, 36vw" />
         </aside>
         <div className="story-sections">
-          {sections.map((section, index) => (
-            <section className="story-section" key={`${section.heading}-${index}`}>
-              {section.heading && <h2>{section.heading}</h2>}
-              {section.paragraphs.map((paragraph, paragraphIndex) => <p key={paragraphIndex}>{paragraph}</p>)}
-            </section>
+          {page.sections.map((section, index) => (
+            <details className="story-section prose-block" key={section.id} open={index === 0}>
+              <summary><h2 className="display">{section.heading}</h2></summary>
+              <ContentBlocks blocks={section.blocks} />
+            </details>
           ))}
         </div>
       </div>
       <ContactBand language={language} />
-      <Footer language={language} />
+      <SiteFooter language={language} />
     </main>
   );
 }
 
 export function MeetingPage({ entry }: { entry: SiteEntry }) {
   const language = entry.language;
-  const lines = pageLines(entry);
-  const sections = sectionsFrom(lines.slice(1));
+  // The session is described by the "What I offer" section of the home content.
+  const offer = section(readPage(language, "home"), "offer");
 
   return (
     <main dir={language === "he" ? "rtl" : "ltr"} lang={language}>
       <SiteHeader language={language} />
-      <PageTop language={language} kicker={ui[language].meetingKicker} title={ui[language].meeting} image="/media/008-66154d350a0b433da16d97d4ec3da8fb.jpg-8e4b58d09925.jpg" imageAlt="" />
-      <article className="meeting-page section-wide">
-        <div className="meeting-intro">
-          <div>
-            <p className="section-kicker">{ui[language].meetingKicker}</p>
-            <h2>{lines[0] || ui[language].meeting}</h2>
-          </div>
-          <div className="meeting-intro-copy">
-            {sections[0]?.paragraphs.map((paragraph, index) => <p key={index}>{paragraph}</p>)}
-          </div>
-        </div>
-        <div className="meeting-flow">
-          {sections.slice(1).map((section, index) => (
-            <section className="meeting-step" key={`${section.heading}-${index}`}>
-              <span>{String(index + 1).padStart(2, "0")}</span>
-              {section.heading && <h2>{section.heading}</h2>}
-              {section.paragraphs.map((paragraph, paragraphIndex) => <p key={paragraphIndex}>{paragraph}</p>)}
-            </section>
-          ))}
-        </div>
-        <blockquote className="no-prediction">{ui[language].noPrediction}</blockquote>
+      <PageTop language={language} kicker={ui[language].meetingKicker} title={ui[language].meeting} />
+      <article className="meeting-page section-shell prose-block">
+        <h2 className="display">{offer.heading}</h2>
+        <ContentBlocks blocks={offer.blocks} />
       </article>
       <ContactBand language={language} />
-      <Footer language={language} />
+      <SiteFooter language={language} />
     </main>
   );
 }
@@ -206,7 +176,7 @@ export function FaqPage({ entry }: { entry: SiteEntry }) {
   return (
     <main dir={language === "he" ? "rtl" : "ltr"} lang={language}>
       <SiteHeader language={language} />
-      <PageTop language={language} kicker={ui[language].faqKicker} title={ui[language].faq} image="/media/010-773a87_1b6e232b7cf0428dbbed634f363b2132-mv2.gif-a24aa259e85c.gif" imageAlt="" />
+      <PageTop language={language} kicker={ui[language].faqKicker} title={ui[language].faq} />
       <section className="faq-list section-shell">
         {questions.map(({ question, answer }, index) => (
           <details key={question} open={index === 0}>
@@ -216,7 +186,7 @@ export function FaqPage({ entry }: { entry: SiteEntry }) {
         ))}
       </section>
       <ContactBand language={language} />
-      <Footer language={language} />
+      <SiteFooter language={language} />
     </main>
   );
 }
@@ -230,7 +200,7 @@ export function RecommendationsPage({ entry }: { entry: SiteEntry }) {
   return (
     <main dir={language === "he" ? "rtl" : "ltr"} lang={language}>
       <SiteHeader language={language} />
-      <PageTop language={language} kicker={ui[language].recommendationsKicker} title={ui[language].recommendations} image="/media/001-035244_bea0a5aa9c92439fb8c1c12caea2f5db.jpg-afcc8b48e3c0.jpg" imageAlt="" />
+      <PageTop language={language} kicker={ui[language].recommendationsKicker} title={ui[language].recommendations} />
       <section className="testimonial section-shell">
         <span className="quote-mark">“</span>
         <p className="testimonial-heading">{lines[0]}</p>
@@ -238,7 +208,7 @@ export function RecommendationsPage({ entry }: { entry: SiteEntry }) {
         <p className="testimonial-author">{author}</p>
       </section>
       <ContactBand language={language} />
-      <Footer language={language} />
+      <SiteFooter language={language} />
     </main>
   );
 }
@@ -262,7 +232,7 @@ export function BlogPage({ entry }: { entry: SiteEntry }) {
   return (
     <main dir={language === "he" ? "rtl" : "ltr"} lang={language}>
       <SiteHeader language={language} />
-      <PageTop language={language} kicker={ui[language].blogKicker} title={ui[language].blog} image="/media/024-9e2941_2897b6e43f91453c83c943dfa1ac1e93-mv2.png-e8e1c02af816.png" imageAlt="" />
+      <PageTop language={language} kicker={ui[language].blogKicker} title={ui[language].blog} />
       <section className="blog-grid section-wide">
         {posts.map((post) => (
           <article className="post-card" key={post.url}>
@@ -286,7 +256,7 @@ export function BlogPage({ entry }: { entry: SiteEntry }) {
           <div className="blog-empty"><h2>{embedded[0]}</h2><p>{embedded[1]}</p></div>
         )}
       </section>
-      <Footer language={language} />
+      <SiteFooter language={language} />
     </main>
   );
 }
@@ -308,7 +278,7 @@ export function PostPage({ entry }: { entry: SiteEntry }) {
         </div>
         <Link className="text-link" href={localized(language, "/blog")}>{ui[language].back}</Link>
       </article>
-      <Footer language={language} />
+      <SiteFooter language={language} />
     </main>
   );
 }
