@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import { HeroVideo } from "./hero-video";
 import { readPage, section } from "@/lib/pages";
 import { ContentBlocks, FoldedBlocks } from "./content-blocks";
 import { ContactLinks, SiteFooter } from "./site-footer";
@@ -24,7 +25,7 @@ export function HomePage({ language = "he" }: { language?: Language }) {
       <SiteHeader language={language} />
       <section className="hero">
         <Image src="/media/hero-landscape.jpg" alt="" fill priority sizes="100vw" />
-        <video className="hero-video" src="/media/hero-loop.mp4" poster="/media/hero-landscape.jpg" autoPlay muted loop playsInline aria-hidden="true" />
+        <HeroVideo />
         <div className="hero-shade" />
         <div className="hero-content">
           <p className="eyebrow">{meta.kicker}</p>
@@ -39,7 +40,7 @@ export function HomePage({ language = "he" }: { language?: Language }) {
 
       <section className="who section-wide">
         <div className="who-portrait">
-          <Image src="/media/zvi-web.jpg" alt={meta.name} fill sizes="(max-width: 900px) 100vw, 40vw" />
+          <Image src="/media/zvi-web.jpg" alt={meta.name} fill sizes="(max-width: 900px) 116px, 40vw" />
         </div>
         <div className="who-copy prose-block">
           <h2 className="display">{who.heading}</h2>

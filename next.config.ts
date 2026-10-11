@@ -6,7 +6,9 @@ const nextConfig: NextConfig = {
     "/[[...slug]]": ["./content/**/*.md"],
   },
   images: {
-    formats: ["image/avif", "image/webp"],
+    // WebP only: AVIF is noticeably slower to generate on the first request for each size.
+    formats: ["image/webp"],
+    minimumCacheTTL: 60 * 60 * 24 * 30,
   },
 };
 

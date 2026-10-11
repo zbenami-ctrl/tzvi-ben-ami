@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import { HeroVideo } from "./hero-video";
 import type { Language } from "./site-header";
 import { SiteHeader } from "./site-header";
 import {
@@ -78,7 +79,7 @@ function PageTop({
   return (
     <section className="inner-hero">
       <Image src="/media/hero-landscape.jpg" alt="" fill priority sizes="100vw" />
-      <video className="hero-video" src="/media/hero-loop.mp4" poster="/media/hero-landscape.jpg" autoPlay muted loop playsInline aria-hidden="true" />
+      <HeroVideo />
       <div className="inner-hero-shade" />
       <div className="inner-hero-copy" dir={language === "he" ? "rtl" : "ltr"}>
         <p className="eyebrow">{kicker}</p>
@@ -126,7 +127,7 @@ export function AboutPage({ entry }: { entry: SiteEntry }) {
       <PageTop language={language} kicker={page.meta.kicker} title={page.meta.title} />
       <div className="story-layout section-wide">
         <aside className="story-portrait">
-          <Image src="/media/zvi-web.jpg" alt={language === "he" ? "צבי בן־עמי" : "Zvi Ben-Ami"} fill sizes="(max-width: 850px) 100vw, 36vw" />
+          <Image src="/media/zvi-web.jpg" alt={language === "he" ? "צבי בן־עמי" : "Zvi Ben-Ami"} fill sizes="(max-width: 900px) 116px, 36vw" />
         </aside>
         <div className="story-sections">
           {page.sections.map((section, index) => (
@@ -237,7 +238,7 @@ export function BlogPage({ entry }: { entry: SiteEntry }) {
         {posts.map((post) => (
           <article className="post-card" key={post.url}>
             <Link className="post-card-image" href={entryPath(post)}>
-              <Image src={localImageFor(post)} alt="" fill sizes="(max-width: 760px) 100vw, 33vw" />
+              <Image src={localImageFor(post)} alt="" fill sizes="(max-width: 560px) 96px, (max-width: 900px) 50vw, 400px" />
             </Link>
             <div className="post-card-copy">
               <h2><Link href={entryPath(post)}>{post.title}</Link></h2>
@@ -248,7 +249,7 @@ export function BlogPage({ entry }: { entry: SiteEntry }) {
         ))}
         {embeddedCards.map((post) => (
           <article className="post-card" key={post.title}>
-            <div className="post-card-image"><Image src={post.image} alt="" fill sizes="(max-width: 760px) 100vw, 50vw" /></div>
+            <div className="post-card-image"><Image src={post.image} alt="" fill sizes="(max-width: 560px) 96px, (max-width: 900px) 50vw, 400px" /></div>
             <div className="post-card-copy"><h2>{post.title}</h2><p>{post.excerpt}</p></div>
           </article>
         ))}
