@@ -11,9 +11,9 @@ import {
   postLines,
   type SiteEntry,
 } from "@/lib/content";
-import { readPage, readVideos, section } from "@/lib/pages";
+import { readPage, readPageIfExists, readVideos, section } from "@/lib/pages";
 import { site } from "@/lib/site";
-import { ContentBlocks } from "./content-blocks";
+import { ContentBlocks, FoldedBlocks } from "./content-blocks";
 import { contactHref, SiteFooter, writeLabel } from "./site-footer";
 import { VideoTestimonial } from "./video-testimonial";
 
@@ -28,6 +28,8 @@ export const ui = {
     recommendations: "המלצות",
     recommendationsKicker: "מילים מאנשים שפגשתי",
     videos: "המלצות בווידאו",
+    readMore: "להמשך קריאה",
+    allTestimonials: "לכל ההמלצות",
     play: "הפעלת סרטון",
     channel: "לערוץ היוטיוב של צבי",
     blog: "לעשות את הדרך",
@@ -46,6 +48,8 @@ export const ui = {
     recommendations: "Recommendations",
     recommendationsKicker: "Words from people I have met",
     videos: "Video testimonials",
+    readMore: "Continue reading",
+    allTestimonials: "All testimonials",
     play: "Play video",
     channel: "Zvi’s YouTube channel",
     blog: "Walking the path",
@@ -64,6 +68,8 @@ export const ui = {
     recommendations: "Empfehlungen",
     recommendationsKicker: "Worte von Menschen, die ich getroffen habe",
     videos: "Video-Empfehlungen",
+    readMore: "Weiterlesen",
+    allTestimonials: "Alle Empfehlungen",
     play: "Video abspielen",
     channel: "Zvis YouTube-Kanal",
     blog: "Den Weg gehen",
@@ -203,21 +209,45 @@ export function FaqPage({ entry }: { entry: SiteEntry }) {
   );
 }
 
+// Testimonials shown before the "all testimonials" button.
+const firstTestimonials = 6;
+
 export function RecommendationsPage({ entry }: { entry: SiteEntry }) {
   const language = entry.language;
   const lines = pageLines(entry);
-  const quote = lines[1] || "";
-  const author = lines[2] || "";
+  // Written testimonials live in content/<language>/testimonials.md; the scraped Wix one is the fallback.
+  const page = readPageIfExists(language, "testimonials");
+  const testimonials = page?.sections ?? [
+    { id: "wix", heading: lines[2] || "", blocks: [{ kind: "paragraph" as const, text: lines[1] || "" }] },
+  ];
+
+  const renderTestimonial = (testimonial: (typeof testimonials)[number], index: number) => (
+    <figure className="testimonial-card" key={`${testimonial.heading}-${index}`}>
+      <span className="quote-mark" aria-hidden="true">“</span>
+      <blockquote>
+        <FoldedBlocks blocks={testimonial.blocks} visible={1} label={ui[language].readMore} />
+      </blockquote>
+      {testimonial.heading && <figcaption>{testimonial.heading}</figcaption>}
+    </figure>
+  );
 
   return (
     <main dir={language === "he" ? "rtl" : "ltr"} lang={language}>
       <SiteHeader language={language} />
       <PageTop language={language} kicker={ui[language].recommendationsKicker} title={ui[language].recommendations} />
-      <section className="testimonial section-shell">
-        <span className="quote-mark">“</span>
-        <p className="testimonial-heading">{lines[0]}</p>
-        <blockquote>{quote}</blockquote>
-        <p className="testimonial-author">{author}</p>
+      <section className="testimonials section-wide">
+        <p className="testimonials-intro">{page?.meta.intro ?? lines[0]}</p>
+        <div className="testimonial-grid">
+          {testimonials.slice(0, firstTestimonials).map(renderTestimonial)}
+        </div>
+        {testimonials.length > firstTestimonials && (
+          <details className="more-testimonials">
+            <summary className="secondary-button">{ui[language].allTestimonials} ({testimonials.length})</summary>
+            <div className="testimonial-grid">
+              {testimonials.slice(firstTestimonials).map(renderTestimonial)}
+            </div>
+          </details>
+        )}
       </section>
       <section className="videos section-wide">
         <h2 className="display">{ui[language].videos}</h2>

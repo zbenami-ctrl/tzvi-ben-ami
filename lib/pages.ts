@@ -44,6 +44,10 @@ export function readPage(language: Language, page: string): PageContent {
   return { meta, sections };
 }
 
+export function readPageIfExists(language: Language, page: string): PageContent | undefined {
+  return fs.existsSync(path.join(contentDir, language, `${page}.md`)) ? readPage(language, page) : undefined;
+}
+
 export function section(page: PageContent, id: string): Section {
   const found = page.sections.find((candidate) => candidate.id === id);
   if (!found) throw new Error(`Missing section {#${id}} in content`);

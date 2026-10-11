@@ -166,7 +166,7 @@ main:lang(en) :is(.eyebrow, .section-kicker), main:lang(de) :is(.eyebrow, .secti
 
 footer a { display: inline-block; padding: 12px 4px; }
 footer p { margin: 0; }
-.social-links { display: flex; justify-content: center; gap: 10px; margin-bottom: 4px; }
+.social-links { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px 10px; margin-bottom: 4px; }
 .social-links a { padding: 8px 16px; border: 1px solid var(--line); border-radius: 999px; color: var(--forest); font-weight: 600; transition: background .2s, color .2s; }
 .social-links a:hover { background: var(--forest); color: white; }
 footer { text-align: center; padding: 18px 20px; color: var(--muted); background: var(--paper); border-top: 1px solid var(--line); font-size: .9rem; }
@@ -221,6 +221,21 @@ footer { text-align: center; padding: 18px 20px; color: var(--muted); background
 /* Long testimonials read from the start edge; only the mark and the author line are centred. */
 .testimonial blockquote { margin: 28px auto; max-width: 32em; font-size: clamp(1.1rem, 1.8vw, 1.3rem); line-height: 1.8; text-align: start; white-space: pre-line; }
 .testimonial-author { font-weight: 700; }
+
+/* Written testimonials: masonry-style columns of cards. */
+.testimonials { padding-block: clamp(48px, 6vw, 80px); }
+.testimonials-intro { margin: 0 0 28px; text-align: center; color: var(--gold-text); font-weight: 700; }
+.testimonial-grid { columns: 3 300px; column-gap: 22px; }
+.testimonial-card { break-inside: avoid; margin: 0 0 22px; padding: 26px 26px 22px; border: 1px solid var(--line); border-radius: 20px; background: var(--white); }
+.testimonial-card .quote-mark { display: block; height: 34px; font-size: 3.6rem; line-height: 1; color: var(--gold); }
+.testimonial-card blockquote { margin: 0; font-size: 1.02rem; line-height: 1.75; }
+.testimonial-card blockquote p { margin: 0 0 .8em; white-space: pre-line; }
+.testimonial-card .read-more { margin: 0 0 .4em; }
+.more-testimonials > summary { list-style: none; display: flex; width: fit-content; margin: 8px auto 0; cursor: pointer; }
+.more-testimonials > summary::-webkit-details-marker { display: none; }
+.more-testimonials[open] > summary { display: none; }
+.more-testimonials .testimonial-grid { margin-top: 0; }
+.testimonial-card figcaption { margin-top: 10px; padding-top: 12px; border-top: 1px solid var(--line); font-weight: 700; color: var(--forest); }
 
 .videos { padding-block: 0 clamp(56px, 7vw, 90px); text-align: center; }
 .videos h2 { font-size: clamp(1.9rem, 3.6vw, 2.75rem); color: var(--forest); margin: 0 0 28px; }
