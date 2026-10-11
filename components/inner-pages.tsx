@@ -11,9 +11,11 @@ import {
   postLines,
   type SiteEntry,
 } from "@/lib/content";
-import { readPage, section } from "@/lib/pages";
+import { readPage, readVideos, section } from "@/lib/pages";
+import { site } from "@/lib/site";
 import { ContentBlocks } from "./content-blocks";
-import { SiteFooter } from "./site-footer";
+import { contactHref, SiteFooter, writeLabel } from "./site-footer";
+import { VideoTestimonial } from "./video-testimonial";
 
 export const ui = {
   he: {
@@ -25,6 +27,9 @@ export const ui = {
     faqKicker: "לפני הפגישה",
     recommendations: "המלצות",
     recommendationsKicker: "מילים מאנשים שפגשתי",
+    videos: "המלצות בווידאו",
+    play: "הפעלת סרטון",
+    channel: "לערוץ היוטיוב של צבי",
     blog: "לעשות את הדרך",
     blogKicker: "הבלוג של צבי",
     read: "לקריאה",
@@ -40,6 +45,9 @@ export const ui = {
     faqKicker: "Before the meeting",
     recommendations: "Recommendations",
     recommendationsKicker: "Words from people I have met",
+    videos: "Video testimonials",
+    play: "Play video",
+    channel: "Zvi’s YouTube channel",
     blog: "Walking the path",
     blogKicker: "Zvi’s blog",
     read: "Read more",
@@ -55,6 +63,9 @@ export const ui = {
     faqKicker: "Vor der Session",
     recommendations: "Empfehlungen",
     recommendationsKicker: "Worte von Menschen, die ich getroffen habe",
+    videos: "Video-Empfehlungen",
+    play: "Video abspielen",
+    channel: "Zvis YouTube-Kanal",
     blog: "Den Weg gehen",
     blogKicker: "Zvis Blog",
     read: "Weiterlesen",
@@ -112,7 +123,7 @@ function ContactBand({ language }: { language: Language }) {
   return (
     <section className="inner-contact-band">
       <p>{ui[language].contact}</p>
-      <a className="primary-button" href="https://wa.me/972544899258">WhatsApp</a>
+      <Link className="primary-button" href={contactHref(language)}>{writeLabel[language]}</Link>
     </section>
   );
 }
@@ -207,6 +218,13 @@ export function RecommendationsPage({ entry }: { entry: SiteEntry }) {
         <p className="testimonial-heading">{lines[0]}</p>
         <blockquote>{quote}</blockquote>
         <p className="testimonial-author">{author}</p>
+      </section>
+      <section className="videos section-wide">
+        <h2 className="display">{ui[language].videos}</h2>
+        <div className="video-grid">
+          {readVideos().map((video) => <VideoTestimonial key={video.id} {...video} playLabel={ui[language].play} />)}
+        </div>
+        <a className="secondary-button" href={site.social.youtube} target="_blank" rel="noopener noreferrer">{ui[language].channel}</a>
       </section>
       <ContactBand language={language} />
       <SiteFooter language={language} />

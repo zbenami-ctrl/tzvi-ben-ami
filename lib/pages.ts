@@ -49,3 +49,18 @@ export function section(page: PageContent, id: string): Section {
   if (!found) throw new Error(`Missing section {#${id}} in content`);
   return found;
 }
+
+export type Video = { id: string; name?: string };
+
+// Reads content/videos.md: one "youtubeId | optional name" per line.
+export function readVideos(): Video[] {
+  const source = fs.readFileSync(path.join(contentDir, "videos.md"), "utf8").replace(/<!--[\s\S]*?-->/g, "");
+  return source
+    .split("\n")
+    .map((line) => line.trim())
+    .filter((line) => /^[\w-]{11}\b/.test(line))
+    .map((line) => {
+      const [id, name] = line.split("|").map((part) => part.trim());
+      return name ? { id, name } : { id };
+    });
+}

@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { MobileMenu } from "./mobile-menu";
-import { whatsappLabel } from "./site-footer";
+import { contactHref, writeLabel } from "./site-footer";
 
 export type Language = "he" | "en" | "de";
 
@@ -72,7 +72,8 @@ export function SiteHeader({ language = "he" }: { language?: Language }) {
       <MobileMenu
         items={navigation[language].map(([label, href]) => ({ label, href: localizedPath(language, href) }))}
         languages={languageLinks.map(({ code, name, href }) => ({ name, href, active: code === language }))}
-        labels={{ ...menuLabels[language], whatsapp: whatsappLabel[language] }}
+        contact={{ label: writeLabel[language], href: contactHref(language) }}
+        labels={menuLabels[language]}
       />
     </header>
   );

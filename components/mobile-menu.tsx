@@ -7,11 +7,12 @@ import { useEffect, useId, useState } from "react";
 type Props = {
   items: Array<{ label: string; href: string }>;
   languages: Array<{ name: string; href: string; active: boolean }>;
-  labels: { open: string; close: string; languages: string; whatsapp: string };
+  contact: { label: string; href: string };
+  labels: { open: string; close: string; languages: string };
 };
 
 // Phone-width navigation: a labelled pill button that opens a sheet under the header.
-export function MobileMenu({ items, languages, labels }: Props) {
+export function MobileMenu({ items, languages, contact, labels }: Props) {
   const [open, setOpen] = useState(false);
   const pathname = usePathname();
   const panelId = useId();
@@ -58,7 +59,7 @@ export function MobileMenu({ items, languages, labels }: Props) {
             </Link>
           ))}
         </div>
-        <a className="primary-button dark" href="https://wa.me/972544899258">{labels.whatsapp}</a>
+        <Link className="primary-button" href={contact.href} onClick={() => setOpen(false)}>{contact.label}</Link>
       </div>
     </>
   );
