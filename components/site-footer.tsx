@@ -1,7 +1,7 @@
 import Link from "next/link";
 import type { Language } from "./site-header";
 
-const whatsappLabel: Record<Language, string> = {
+export const whatsappLabel: Record<Language, string> = {
   he: "כתבו לי ב־WhatsApp",
   en: "Write to me on WhatsApp",
   de: "Schreiben Sie mir auf WhatsApp",

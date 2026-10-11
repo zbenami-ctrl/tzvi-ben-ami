@@ -1,4 +1,6 @@
 import Link from "next/link";
+import { MobileMenu } from "./mobile-menu";
+import { whatsappLabel } from "./site-footer";
 
 export type Language = "he" | "en" | "de";
 
@@ -32,6 +34,18 @@ const brandLine: Record<Language, string> = {
   de: "Spirituelle Begleitung und Seelenlesen",
 };
 
+const menuLabels: Record<Language, { open: string; close: string; languages: string }> = {
+  he: { open: "תפריט", close: "סגירה", languages: "בחירת שפה" },
+  en: { open: "Menu", close: "Close", languages: "Language selection" },
+  de: { open: "Menü", close: "Schließen", languages: "Sprachauswahl" },
+};
+
+const languageLinks: Array<{ code: Language; name: string; href: string }> = [
+  { code: "he", name: "עברית", href: "/" },
+  { code: "de", name: "Deutsch", href: "/de" },
+  { code: "en", name: "English", href: "/en" },
+];
+
 function localizedPath(language: Language, path: string) {
   return language === "he" ? path : `/${language}${path === "/" ? "" : path}`;
 }
@@ -48,13 +62,18 @@ export function SiteHeader({ language = "he" }: { language?: Language }) {
           <Link key={href} href={localizedPath(language, href)}>{label}</Link>
         ))}
       </nav>
-      <div className="languages" aria-label={language === "he" ? "בחירת שפה" : "Language selection"}>
+      <div className="languages" aria-label={menuLabels[language].languages}>
         <Link className={language === "he" ? "active" : ""} href="/">HE</Link>
         <span>·</span>
         <Link className={language === "de" ? "active" : ""} href="/de">DE</Link>
         <span>·</span>
         <Link className={language === "en" ? "active" : ""} href="/en">EN</Link>
       </div>
+      <MobileMenu
+        items={navigation[language].map(([label, href]) => ({ label, href: localizedPath(language, href) }))}
+        languages={languageLinks.map(({ code, name, href }) => ({ name, href, active: code === language }))}
+        labels={{ ...menuLabels[language], whatsapp: whatsappLabel[language] }}
+      />
     </header>
   );
 }
