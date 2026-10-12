@@ -3,7 +3,7 @@ import Link from "next/link";
 import { HeroVideo } from "./hero-video";
 import { SocialIcons } from "./social-icons";
 import { readPage, section } from "@/lib/pages";
-import { ContentBlocks, FoldedBlocks } from "./content-blocks";
+import { ContentBlocks, FoldedBlocks, keepLastWords } from "./content-blocks";
 import { ContactLinks, SiteFooter } from "./site-footer";
 import { Language, SiteHeader } from "./site-header";
 
@@ -76,7 +76,7 @@ export function HomePage({ language = "he" }: { language?: Language }) {
           {/* The ● separators in the content become separate items, so each phrase stays whole on a phone. */}
           {services && <ul className="contact-services">{splitDots(services).map((item) => <li key={item}>{item}</li>)}</ul>}
           {modes && <ul className="contact-modes">{splitDots(modes).map((item) => <li key={item}>{item}</li>)}</ul>}
-          {invitation.map((text, index) => <p className="contact-invitation" key={index}>{text}</p>)}
+          {invitation.map((text, index) => <p className="contact-invitation" key={index}>{keepLastWords(text)}</p>)}
           <ContactLinks language={language} />
         </div>
       </section>

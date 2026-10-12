@@ -45,7 +45,7 @@ export function SiteFooter({ language, social = true }: { language: Language; so
     <footer>
       {social && <SocialLinks language={language} />}
       <p>
-        © {new Date().getFullYear()} {language === "he" ? "צבי בן־עמי" : "Zvi Ben-Ami"} ·{" "}
+        © {new Date().getFullYear()} {language === "he" ? "צבי בן-עמי" : "Zvi Ben-Ami"} ·{" "}
         <Link href="/">עברית</Link> · <Link href="/en">English</Link> · <Link href="/de">Deutsch</Link>
       </p>
     </footer>

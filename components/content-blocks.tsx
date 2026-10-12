@@ -1,8 +1,8 @@
 import type { Block } from "@/lib/pages";
 
-// Ties the last three words of each line together, so a paragraph never ends on a line of one or two words.
+// Ties the last three words of a paragraph together, so it never ends on a line of one or two words.
 export function keepLastWords(text: string) {
-  return text.split("\n").map((line) => line.replace(/ (\S+) (\S+)\s*$/, "\u00a0$1\u00a0$2")).join("\n");
+  return text.replace(/ (\S+) (\S+)\s*$/, "\u00a0$1\u00a0$2");
 }
 
 export function ContentBlocks({ blocks }: { blocks: Block[] }) {

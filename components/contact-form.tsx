@@ -10,7 +10,7 @@ const copy: Record<Language, Record<"name" | "contact" | "message" | "send" | "s
     contact: "טלפון או מייל",
     message: "הודעה",
     send: "שליחה",
-    sending: "שולח…",
+    sending: "שולח...",
     sent: "תודה, ההודעה נשלחה. אחזור אליכם בהקדם.",
     failed: "משהו השתבש בשליחה. אפשר לנסות שוב בעוד רגע.",
   },
@@ -19,8 +19,8 @@ const copy: Record<Language, Record<"name" | "contact" | "message" | "send" | "s
     contact: "Phone or email",
     message: "Message",
     send: "Send",
-    sending: "Sending…",
-    sent: "Thank you, your message was sent. I’ll get back to you soon.",
+    sending: "Sending...",
+    sent: "Thank you, your message was sent. I'll get back to you soon.",
     failed: "Something went wrong. Please try again in a moment.",
   },
   de: {
@@ -28,7 +28,7 @@ const copy: Record<Language, Record<"name" | "contact" | "message" | "send" | "s
     contact: "Telefon oder E-Mail",
     message: "Nachricht",
     send: "Senden",
-    sending: "Wird gesendet…",
+    sending: "Wird gesendet...",
     sent: "Danke, Ihre Nachricht wurde gesendet. Ich melde mich bald bei Ihnen.",
     failed: "Etwas ist schiefgelaufen. Bitte versuchen Sie es gleich noch einmal.",
   },
@@ -53,7 +53,7 @@ export function ContactForm({ language }: { language: Language }) {
           ...data,
           access_key: site.web3formsKey,
           subject: `פנייה חדשה מהאתר (${language.toUpperCase()})`,
-          from_name: "אתר צבי בן־עמי",
+          from_name: "אתר צבי בן-עמי",
         }),
       });
       const result = await response.json();

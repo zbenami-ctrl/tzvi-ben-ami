@@ -55,9 +55,9 @@ export const ui = {
     allTestimonials: "All testimonials",
     blogVideos: "Videos",
     play: "Play video",
-    channel: "Zvi’s YouTube channel",
+    channel: "Zvi's YouTube channel",
     blog: "Walking the path",
-    blogKicker: "Zvi’s blog",
+    blogKicker: "Zvi's blog",
     read: "Read more",
     contact: "Schedule a meeting with Zvi",
     back: "Back to the blog",
@@ -149,7 +149,7 @@ export function AboutPage({ entry }: { entry: SiteEntry }) {
       <PageTop language={language} kicker={page.meta.kicker} title={page.meta.title} />
       <div className="story-layout section-wide">
         <aside className="story-portrait">
-          <Image src="/media/zvi-web.jpg" alt={language === "he" ? "צבי בן־עמי" : "Zvi Ben-Ami"} fill sizes="(max-width: 900px) 116px, 36vw" />
+          <Image src="/media/zvi-web.jpg" alt={language === "he" ? "צבי בן-עמי" : "Zvi Ben-Ami"} fill sizes="(max-width: 900px) 116px, 36vw" />
         </aside>
         <div className="story-sections">
           {page.sections.map((section, index) => (
@@ -271,7 +271,7 @@ function excerptFor(entry: SiteEntry) {
   const lines = postLines(entry);
   const paragraph = lines.slice(1).find((line) => line.length > 90 && !line.startsWith("#"));
   if (!paragraph) return "";
-  return paragraph.length > 190 ? `${paragraph.slice(0, 187).trim()}…` : paragraph;
+  return paragraph.length > 190 ? `${paragraph.slice(0, 187).trim()}...` : paragraph;
 }
 
 export async function BlogPage({ entry }: { entry: SiteEntry }) {

@@ -31,13 +31,18 @@ function parse(url: string): BlogVideo | undefined {
   return undefined;
 }
 
+// Captions come straight from the social posts; long dashes and curly apostrophes are shown as plain punctuation.
+function plainPunctuation(text?: string) {
+  return text?.replace(/\s*[—–]\s*/g, ", ").replace(/[‘’]/g, "'");
+}
+
 // TikTok cover images are signed URLs that expire, so they are looked up again once a day.
 async function withTikTokDetails(video: BlogVideo): Promise<BlogVideo> {
   try {
     const response = await fetch(`https://www.tiktok.com/oembed?url=${encodeURIComponent(video.url)}`, { next: { revalidate: 86400 } });
     if (!response.ok) return video;
     const data = await response.json();
-    return { ...video, title: data.title, thumbnail: data.thumbnail_url };
+    return { ...video, title: plainPunctuation(data.title), thumbnail: data.thumbnail_url };
   } catch {
     return video;
   }

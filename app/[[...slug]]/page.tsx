@@ -67,7 +67,7 @@ export default async function Page({ params }: Props) {
   const title = lines[0] || entry.title;
   const language = entry.language as Language;
   const labels = {
-    he: { page: "צבי בן־עמי", blog: "בלוג", back: "חזרה לדף הבית" },
+    he: { page: "צבי בן-עמי", blog: "בלוג", back: "חזרה לדף הבית" },
     en: { page: "Zvi Ben-Ami", blog: "Blog", back: "Back to the home page" },
     de: { page: "Zvi Ben-Ami", blog: "Blog", back: "Zurück zur Startseite" },
   }[language];

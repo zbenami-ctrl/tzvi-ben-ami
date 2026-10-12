@@ -21,8 +21,8 @@ const displayFont = Varela_Round({
 export const metadata: Metadata = {
   metadataBase: new URL("https://www.zbenami.com"),
   title: {
-    default: "צבי בן־עמי | קריאת נשמה דרך כף היד",
-    template: "%s | צבי בן־עמי",
+    default: "צבי בן-עמי | קריאת נשמה דרך כף היד",
+    template: "%s | צבי בן-עמי",
   },
   description: "קריאת נשמה דרך כף היד · ידיעה פנימית · מסרים ממעמקים",
 };

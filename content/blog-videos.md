@@ -1,6 +1,6 @@
 <!--
 סרטונים לבלוג, בכל השפות.
-מדביקים קישור לסרטון בשורה משלו, לפי הסדר שבו יופיע. נתמכים קישורים מ־TikTok, מ־Instagram ומ־YouTube.
+מדביקים קישור לסרטון בשורה משלו, לפי הסדר שבו יופיע. נתמכים קישורים מ-TikTok, מ-Instagram ומ-YouTube.
 דוגמאות:
 https://www.tiktok.com/@zvisoulpath/video/7695497609116601652
 https://www.instagram.com/reel/XXXXXXXXXXX/
