@@ -34,7 +34,7 @@ const copy: Record<Language, Record<"name" | "contact" | "message" | "send" | "s
   },
 };
 
-// Messages go to Zvi's inbox through Web3Forms; there is deliberately no direct WhatsApp link.
+// Messages go to Zvi's inbox through Web3Forms; his email and phone never appear on the site.
 export function ContactForm({ language }: { language: Language }) {
   const text = copy[language];
   const [status, setStatus] = useState<"idle" | "sending" | "sent" | "failed">("idle");
@@ -44,12 +44,6 @@ export function ContactForm({ language }: { language: Language }) {
     const form = event.currentTarget;
     const data = Object.fromEntries(new FormData(form));
     if (data.botcheck) return;
-    // Until the Web3Forms key exists, hand the written message to WhatsApp so nothing is lost.
-    if (!site.web3formsKey) {
-      const message = `${data.name}\n${data.contact}\n\n${data.message}`;
-      window.open(`${site.whatsappFallback}?text=${encodeURIComponent(String(message))}`, "_blank", "noopener");
-      return;
-    }
     setStatus("sending");
     try {
       const response = await fetch("https://api.web3forms.com/submit", {
