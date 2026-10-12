@@ -42,8 +42,8 @@ const menuLabels: Record<Language, { open: string; close: string; languages: str
 
 const languageLinks: Array<{ code: Language; name: string; href: string }> = [
   { code: "he", name: "עברית", href: "/" },
-  { code: "de", name: "Deutsch", href: "/de" },
   { code: "en", name: "English", href: "/en" },
+  { code: "de", name: "Deutsch", href: "/de" },
 ];
 
 function localizedPath(language: Language, path: string) {
@@ -65,9 +65,9 @@ export function SiteHeader({ language = "he" }: { language?: Language }) {
       <div className="languages" aria-label={menuLabels[language].languages}>
         <Link className={language === "he" ? "active" : ""} href="/">HE</Link>
         <span>·</span>
-        <Link className={language === "de" ? "active" : ""} href="/de">DE</Link>
-        <span>·</span>
         <Link className={language === "en" ? "active" : ""} href="/en">EN</Link>
+        <span>·</span>
+        <Link className={language === "de" ? "active" : ""} href="/de">DE</Link>
       </div>
       <MobileMenu
         items={navigation[language].map(([label, href]) => ({ label, href: localizedPath(language, href) }))}

@@ -32,8 +32,9 @@ export function HomePage({ language = "he" }: { language?: Language }) {
         <HeroVideo />
         <div className="hero-shade" />
         <div className="hero-content">
-          <p className="eyebrow">{meta.kicker}</p>
           <h1 className="handwriting">{meta.name}</h1>
+          {/* Zvi asked for this line under his name, where it reads clearly. */}
+          <p className="hero-kicker">{meta.kicker}</p>
           <p className="hero-role">{meta.role}</p>
           <div className="hero-lead">
             {opening.blocks.map((block, index) => <p key={index}>{block.text}</p>)}

@@ -5,7 +5,7 @@ title: Mein Weg
 
 ## Wie alles begann {#began}
 
-Meine Reise mit dem Handlesen begann bei meiner Mutter, seligen Angedenkens. Während des Zweiten Weltkriegs floh sie nach England. Dort begegnete sie einer Zigeunerin, die aus ihrer Hand las und ihr einen frühen Tod voraussagte. Diese dunkle Vorhersage begleitete sie viele Jahre. Meine Mutter, die ihre ganze Familie im Holocaust verloren hatte, trug eine Welt von Überzeugungen und Ängsten in sich. Als Kind erinnere ich mich daran, wie oft sie mir von dieser Handlesung erzählte. Sie wollte sogar nicht, dass ich zu Hause nur in Socken herumlief, denn, wie sie sagte: „Nur Waisen laufen in Socken herum.“
+Meine Reise mit dem Handlesen begann bei meiner Mutter. Während des Zweiten Weltkriegs floh sie nach England. Dort begegnete sie einer Zigeunerin, die aus ihrer Hand las und ihr einen frühen Tod voraussagte. Diese dunkle Vorhersage begleitete sie viele Jahre. Meine Mutter, die ihre ganze Familie im Holocaust verloren hatte, trug eine Welt von Überzeugungen und Ängsten in sich. Als Kind erinnere ich mich daran, wie oft sie mir von dieser Handlesung erzählte. Sie wollte sogar nicht, dass ich zu Hause nur in Socken herumlief, denn, wie sie sagte: „Nur Waisen laufen in Socken herum.“
 
 Als ich zehn Jahre alt war, verlor ich meinen Vater. Neun Jahre später verlor ich auch meine Mutter. Beide Verluste haben tiefe Spuren in meinem Leben hinterlassen.
 

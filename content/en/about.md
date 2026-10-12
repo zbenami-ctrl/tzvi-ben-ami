@@ -5,7 +5,7 @@ title: My Path
 
 ## How It All Began {#began}
 
-My journey with palm reading began with my mother, of blessed memory. During the Second World War, she fled to England, where she met a Gypsy woman who read her palm and predicted that she would die young. That dark prediction stayed with her for many years. My mother, who had lost her entire family in the Holocaust, carried within her a world of beliefs and fears. As a child, I remember how often she spoke to me about that palm reading. She would even refuse to let me walk around the house in socks, because, as she used to say, “only orphans walk around in socks.”
+My journey with palm reading began with my mother. During the Second World War, she fled to England, where she met a Gypsy woman who read her palm and predicted that she would die young. That dark prediction stayed with her for many years. My mother, who had lost her entire family in the Holocaust, carried within her a world of beliefs and fears. As a child, I remember how often she spoke to me about that palm reading. She would even refuse to let me walk around the house in socks, because, as she used to say, “only orphans walk around in socks.”
 
 When I was ten, I lost my father. Nine years later, I lost my mother as well. Both losses left a deep imprint on my life.
 

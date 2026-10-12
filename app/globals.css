@@ -105,7 +105,8 @@ html.menu-open { overflow: hidden; }
 main:lang(en) :is(.eyebrow, .section-kicker), main:lang(de) :is(.eyebrow, .section-kicker) { letter-spacing: .14em; font-size: .78rem; font-weight: 700; text-transform: uppercase; }
 .eyebrow { color: var(--gold-soft); margin: 0 0 14px; }
 .hero h1 { font-size: clamp(3rem, 7.5vw, 6.4rem); margin: 0; line-height: 1.2; }
-.hero-role { font-size: clamp(1.08rem, 1.8vw, 1.35rem); line-height: 1.5; margin: 12px 0 0; opacity: .92; text-wrap: balance; }
+.hero-kicker { margin: 6px 0 0; color: #f3e2bf; font-family: var(--display); font-size: clamp(1.25rem, 2.2vw, 1.65rem); line-height: 1.4; text-wrap: balance; }
+.hero-role { font-size: clamp(1.02rem, 1.6vw, 1.22rem); line-height: 1.5; margin: 8px 0 0; opacity: .9; text-wrap: balance; }
 .hero-lead { margin: 22px 0 30px; padding-top: 22px; border-top: 1px solid rgba(255,255,255,.4); max-width: 38em; }
 .hero-lead p { text-wrap: balance; margin: 0; font-size: clamp(1.1rem, 1.7vw, 1.3rem); line-height: 1.7; white-space: pre-line; }
 .primary-button, .secondary-button { display: inline-flex; align-items: center; justify-content: center; min-height: 52px; padding: 0 30px; border-radius: 999px; font-weight: 700; transition: transform .2s, background .2s, color .2s; }
@@ -161,8 +162,6 @@ main:lang(en) :is(.eyebrow, .section-kicker), main:lang(de) :is(.eyebrow, .secti
 .form-sent, .form-failed { margin: 0; padding: 16px 20px; border-radius: 14px; text-align: center; }
 .form-sent { width: min(520px, 100%); background: rgba(255,255,255,.1); font-family: var(--display); font-size: 1.2rem; }
 .form-failed { color: #ffd9c7; }
-.contact-phone { opacity: .8; border-bottom: 1px solid transparent; padding-block: 10px 2px; }
-.contact-phone:hover { border-color: var(--gold-soft); }
 
 footer a { display: inline-block; padding: 12px 4px; }
 footer p { margin: 0; }
@@ -308,6 +307,8 @@ footer { text-align: center; padding: 18px 20px; color: var(--muted); background
   .story-layout, .meeting-page, .faq-list, .testimonial, .blog-grid, .post-page { padding-block: 44px 56px; }
   .story-layout { gap: 32px; }
   .blog-grid { grid-template-columns: 1fr; gap: 14px; }
+  .social-links { gap: 6px; }
+  .social-links a { padding: 7px 12px; font-size: .9rem; }
   .video-grid { gap: 12px; }
   .video-frame { border-radius: 12px; }
   .video-play { width: 40px; height: 40px; }
