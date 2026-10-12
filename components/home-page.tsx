@@ -38,7 +38,12 @@ export function HomePage({ language = "he" }: { language?: Language }) {
           <p className="hero-kicker">{meta.kicker}</p>
           <p className="hero-role">{meta.role}</p>
           <div className="hero-lead">
-            {opening.blocks.map((block, index) => <p key={index}>{block.text}</p>)}
+            {/* Each line break in the content is its own balanced line, so a long line never leaves a word alone. */}
+            {opening.blocks.map((block, index) => (
+              <p key={index}>
+                {block.text.split("\n").map((line, lineIndex) => <span className="hero-line" key={lineIndex}>{line} </span>)}
+              </p>
+            ))}
           </div>
           <Link className="primary-button" href="#contact">{meta.cta}</Link>
           <SocialIcons language={language} />

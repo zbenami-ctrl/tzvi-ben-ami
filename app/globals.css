@@ -108,7 +108,8 @@ main:lang(en) :is(.eyebrow, .section-kicker), main:lang(de) :is(.eyebrow, .secti
 .hero-kicker { margin: 6px 0 0; color: #f3e2bf; font-family: var(--display); font-size: clamp(1.25rem, 2.2vw, 1.65rem); line-height: 1.4; text-wrap: balance; }
 .hero-role { font-size: clamp(1.02rem, 1.6vw, 1.22rem); line-height: 1.5; margin: 8px 0 0; opacity: .9; text-wrap: balance; }
 .hero-lead { margin: 22px 0 30px; padding-top: 22px; border-top: 1px solid rgba(255,255,255,.4); }
-.hero-lead p { margin: 0; font-size: clamp(1.1rem, 1.7vw, 1.3rem); line-height: 1.7; white-space: pre-line; }
+.hero-lead p { margin: 0; font-size: clamp(1.1rem, 1.7vw, 1.3rem); line-height: 1.7; }
+.hero-line { display: block; text-wrap: balance; }
 .hero-social { display: flex; justify-content: center; gap: 12px; margin-top: 26px; }
 .hero-social a { display: grid; place-items: center; width: 46px; height: 46px; border: 1px solid rgba(255,255,255,.45); border-radius: 50%; background: rgba(255,255,255,.1); backdrop-filter: blur(6px); color: white; transition: background .2s, color .2s, transform .2s; }
 .hero-social a:hover { background: white; color: var(--forest); transform: translateY(-2px); }
@@ -319,7 +320,8 @@ footer { text-align: center; padding: 18px 20px; color: var(--muted); background
   .hero h1 { font-size: clamp(2.6rem, 12.5vw, 4.4rem); white-space: nowrap; }
   .hero-content { width: calc(100% - 34px); }
   /* The desktop line breaks in the opening don't fit a phone, so the text flows there. */
-  .hero-lead p { white-space: normal; text-wrap: balance; }
+  .hero-lead p { text-wrap: balance; }
+  .hero-line { display: inline; }
   .content-page { padding-top: 65px; }
   .section-wide { width: min(100% - 32px, 1180px); }
   .inner-hero { height: 190px; }
