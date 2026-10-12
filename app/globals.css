@@ -146,6 +146,10 @@ main:lang(en) :is(.eyebrow, .section-kicker), main:lang(de) :is(.eyebrow, .secti
 .read-more[open] summary { display: none; }
 .who-copy > h2 + p { font-family: var(--display); font-size: clamp(1.2rem, 1.9vw, 1.4rem); line-height: 1.45; letter-spacing: -.015em; }
 @media (min-width: 901px) {
+  /* The portrait is as tall as the text beside it, top-aligned as in Figma. */
+  .who { align-items: stretch; }
+  .who-portrait { position: relative; top: auto; aspect-ratio: auto; min-height: 380px; }
+  .who-portrait img { object-position: 50% 68%; }
   .who-copy > h2 { font-family: inherit; font-size: 1.125rem; font-weight: 700; line-height: 1.55; letter-spacing: inherit; margin-bottom: 12px; }
   .who-copy > p, .who-copy > .read-more { margin-bottom: 0; }
   .who-copy .read-more p { margin-bottom: 16px; }
