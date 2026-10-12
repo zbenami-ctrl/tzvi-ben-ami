@@ -12,9 +12,11 @@ import {
   type SiteEntry,
 } from "@/lib/content";
 import { readPage, readPageIfExists, readVideos, section } from "@/lib/pages";
+import { readBlogVideos } from "@/lib/blog-videos";
 import { site } from "@/lib/site";
 import { ContentBlocks, FoldedBlocks } from "./content-blocks";
 import { contactHref, SiteFooter, writeLabel } from "./site-footer";
+import { SocialVideo } from "./social-video";
 import { VideoTestimonial } from "./video-testimonial";
 
 export const ui = {
@@ -30,6 +32,7 @@ export const ui = {
     videos: "המלצות בווידאו",
     readMore: "להמשך קריאה",
     allTestimonials: "לכל ההמלצות",
+    blogVideos: "סרטונים",
     play: "הפעלת סרטון",
     channel: "לערוץ היוטיוב של צבי",
     blog: "לעשות את הדרך",
@@ -50,6 +53,7 @@ export const ui = {
     videos: "Video testimonials",
     readMore: "Continue reading",
     allTestimonials: "All testimonials",
+    blogVideos: "Videos",
     play: "Play video",
     channel: "Zvi’s YouTube channel",
     blog: "Walking the path",
@@ -70,6 +74,7 @@ export const ui = {
     videos: "Video-Empfehlungen",
     readMore: "Weiterlesen",
     allTestimonials: "Alle Empfehlungen",
+    blogVideos: "Videos",
     play: "Video abspielen",
     channel: "Zvis YouTube-Kanal",
     blog: "Den Weg gehen",
@@ -269,9 +274,10 @@ function excerptFor(entry: SiteEntry) {
   return paragraph.length > 190 ? `${paragraph.slice(0, 187).trim()}…` : paragraph;
 }
 
-export function BlogPage({ entry }: { entry: SiteEntry }) {
+export async function BlogPage({ entry }: { entry: SiteEntry }) {
   const language = entry.language;
   const posts = postEntries(language);
+  const videos = await readBlogVideos();
   const embedded = pageLines(entry);
   const embeddedCards = language === "en"
     ? [{ title: embedded[0], excerpt: embedded[1], image: "/media/010-773a87_1b6e232b7cf0428dbbed634f363b2132-mv2.gif-a24aa259e85c.gif" },
@@ -282,6 +288,14 @@ export function BlogPage({ entry }: { entry: SiteEntry }) {
     <main dir={language === "he" ? "rtl" : "ltr"} lang={language}>
       <SiteHeader language={language} />
       <PageTop language={language} kicker={ui[language].blogKicker} title={ui[language].blog} />
+      {videos.length > 0 && (
+        <section className="blog-videos section-wide">
+          <h2 className="display">{ui[language].blogVideos}</h2>
+          <div className="social-video-row">
+            {videos.map((video) => <SocialVideo key={video.url} video={video} playLabel={ui[language].play} />)}
+          </div>
+        </section>
+      )}
       <section className="blog-grid section-wide">
         {posts.map((post) => (
           <article className="post-card" key={post.url}>

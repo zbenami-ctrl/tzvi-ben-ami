@@ -75,12 +75,19 @@ const postCovers: Array<[string, string]> = [
   ["חלל פנימי וחיצוני", "desert"],
   ["סט מדבר", "moon-lake"],
   ["קרישנמורטי", "songbird"],
+  ["שמעבר למילים והתכנים", "horizon"],
+  ["פחד מכישלון", "stepping-stones"],
+  ["להתמודד עם חרדות", "oak"],
+  ["על סבלנות", "bud"],
+  ["כל שאתם", "lily"],
+  ["מתנת המרווחים", "ridges"],
+  ["דולרס קאנון", "nautilus"],
 ];
 
 export function localImageFor(entry: SiteEntry) {
   const cover = postCovers.find(([title]) => entry.title.includes(title));
   if (cover) return `/media/blog/${cover[1]}.jpg`;
 
-  // Posts still waiting for a cover of their own share the hero image.
+  // New posts without a cover of their own fall back to the hero image.
   return "/media/hero-landscape.jpg";
 }

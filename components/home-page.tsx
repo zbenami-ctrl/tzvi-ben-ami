@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { HeroVideo } from "./hero-video";
+import { SocialIcons } from "./social-icons";
 import { readPage, section } from "@/lib/pages";
 import { ContentBlocks, FoldedBlocks } from "./content-blocks";
 import { ContactLinks, SiteFooter } from "./site-footer";
@@ -40,6 +41,7 @@ export function HomePage({ language = "he" }: { language?: Language }) {
             {opening.blocks.map((block, index) => <p key={index}>{block.text}</p>)}
           </div>
           <Link className="primary-button" href="#contact">{meta.cta}</Link>
+          <SocialIcons language={language} />
         </div>
       </section>
 
@@ -74,7 +76,8 @@ export function HomePage({ language = "he" }: { language?: Language }) {
         </div>
       </section>
 
-      <SiteFooter language={language} />
+      {/* Social links sit in the hero on the home page, so the footer leaves them out. */}
+      <SiteFooter language={language} social={false} />
     </main>
   );
 }
