@@ -14,7 +14,7 @@ import {
 import { readPage, readPageIfExists, readVideos, section } from "@/lib/pages";
 import { readBlogVideos } from "@/lib/blog-videos";
 import { site } from "@/lib/site";
-import { ContentBlocks, FoldedBlocks } from "./content-blocks";
+import { ContentBlocks, FoldedBlocks, keepLastWords } from "./content-blocks";
 import { contactHref, SiteFooter, writeLabel } from "./site-footer";
 import { SocialVideo } from "./social-video";
 import { VideoTestimonial } from "./video-testimonial";
@@ -204,7 +204,7 @@ export function FaqPage({ entry }: { entry: SiteEntry }) {
         {questions.map(({ question, answer }, index) => (
           <details key={question} open={index === 0}>
             <summary>{question}</summary>
-            {answer && <p>{answer}</p>}
+            {answer && <p>{keepLastWords(answer)}</p>}
           </details>
         ))}
       </section>
@@ -337,7 +337,7 @@ export function PostPage({ entry }: { entry: SiteEntry }) {
         <h1>{title}</h1>
         <div className="post-page-image"><Image src={localImageFor(entry)} alt="" fill priority sizes="(max-width: 900px) 100vw, 850px" /></div>
         <div className="prose">
-          {lines.slice(1).map((line, index) => isHeading(line) ? <h2 key={index}>{line}</h2> : <p key={index}>{line}</p>)}
+          {lines.slice(1).map((line, index) => isHeading(line) ? <h2 key={index}>{line}</h2> : <p key={index}>{keepLastWords(line)}</p>)}
         </div>
         <Link className="text-link" href={localized(language, "/blog")}>{ui[language].back}</Link>
       </article>
