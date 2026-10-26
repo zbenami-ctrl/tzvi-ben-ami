@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
-import { notFound } from "next/navigation";
+import { permanentRedirect } from "next/navigation";
 import { HomePage } from "@/components/home-page";
 import {
   AboutPage,
@@ -50,7 +50,7 @@ export default async function Page({ params }: Props) {
   const pathname = pathnameFrom(slug);
   if (pathname === "/") return <HomePage />;
   const entry = findEntry(pathname);
-  if (!entry) notFound();
+  if (!entry) permanentRedirect("/");
   if ((pathname === "/en" || pathname === "/de") && entry.kind === "page") {
     return <HomePage language={entry.language} />;
   }

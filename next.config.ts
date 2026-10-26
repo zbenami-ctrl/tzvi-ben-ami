@@ -5,30 +5,30 @@ const nextConfig: NextConfig = {
   outputFileTracingIncludes: {
     "/[[...slug]]": ["./content/**/*.md"],
   },
-  // Keep every address of the old Wix site working after zbenami.com moves here.
+  // Old Wix-only addresses all converge on the new homepage.
+  // Current pages keep their own URLs and continue to work normally.
   async redirects() {
     const site = "https://www.zbenami.com";
-    const languageHosts = (["en", "de"] as const).flatMap((language) => [
-      { source: "/", has: [{ type: "host" as const, value: `${language}.zbenami.com` }], destination: `${site}/${language}`, permanent: true },
-      { source: "/:path+", has: [{ type: "host" as const, value: `${language}.zbenami.com` }], destination: `${site}/${language}/:path+`, permanent: true },
-      { source: "/", has: [{ type: "query" as const, key: "lang", value: language }], destination: `/${language}`, permanent: true },
-      // Skip paths already under /en or /de, so the carried-over ?lang= query can't loop.
-      { source: "/:path((?!(?:en|de)(?:/|$)).+)", has: [{ type: "query" as const, key: "lang", value: language }], destination: `/${language}/:path`, permanent: true },
-    ]);
+    const legacyHosts = (["en", "de"] as const).map((language) => ({
+      source: "/:path*",
+      has: [{ type: "host" as const, value: `${language}.zbenami.com` }],
+      destination: site,
+      permanent: true,
+    }));
     const oldPages = [
-      ["/home", "/"],
-      ["/about111", "/about"],
-      ["/new111", "/metting-with-tzvi"],
-      ["/blog-feed.xml", "/blog"],
-      ["/thanks", "/"],
-      ["/thanks-en", "/en"],
-      ["/phone-call", "/"],
-      ["/privacy-policy", "/"],
-    ].flatMap(([from, to]) => [
-      { source: from, destination: to, permanent: true },
-      { source: `/:language(en|de)${from}`, destination: to === "/" || to === "/en" ? "/:language" : `/:language${to}`, permanent: true },
+      "/home",
+      "/about111",
+      "/new111",
+      "/blog-feed.xml",
+      "/thanks",
+      "/thanks-en",
+      "/phone-call",
+      "/privacy-policy",
+    ].flatMap((source) => [
+      { source, destination: "/", permanent: true },
+      { source: `/:language(en|de)${source}`, destination: "/", permanent: true },
     ]);
-    return [...languageHosts, ...oldPages];
+    return [...legacyHosts, ...oldPages];
   },
   images: {
     // WebP only: AVIF is noticeably slower to generate on the first request for each size.
